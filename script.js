@@ -1,5 +1,8 @@
 const choices = ['rock','paper','scissors'];
-
+const points = {
+  'player': 0,
+  'computer': 0,
+};
 
 function getComputerChoice(){
   const randomNumber = parseInt(Math.random() * 100);
@@ -22,11 +25,13 @@ function getPlayerChoice(){
 
 function playerChoosesRock(playerSelection, computerSelection){
   if(computerSelection === 'paper'){
+    points['computer']++;
     return `You lose! ${computerSelection} beats ${playerSelection}`;
   }
   if(computerSelection === 'rock'){
     return `Tie! ${computerSelection} is equal to ${playerSelection}`;
   }
+  points['player']++;
   return `You win! ${playerSelection} beats ${computerSelection}`;
 }
 
@@ -35,16 +40,20 @@ function playerChoosesPaper(playerSelection, computerSelection){
     return `Tie! ${computerSelection} is equal to ${playerSelection}`;
   }
   if(computerSelection === 'rock'){
+    points['player']++;
     return `You win! ${playerSelection} beats ${computerSelection}`;
   }
+  points['computer']++;
   return `You lose! ${computerSelection} beats ${playerSelection}`;
 }
 
 function playerChoosesScissors(playerSelection, computerSelection){
   if(computerSelection === 'paper'){
+    points['player']++;
     return `You win! ${playerSelection} beats ${computerSelection}`;
   }
   if(computerSelection === 'rock'){
+    points['computer']++;
     return `You lose! ${computerSelection} beats ${playerSelection}`;
   }
   return `Tie! ${computerSelection} is equal to ${playerSelection}`;
@@ -69,4 +78,22 @@ function playRound(){
   return getRoundResult(playerSelection, computerSelection);
 }
 
-console.log(playRound());
+function getWinner(){
+  if(points['computer'] === points['player'])
+    return `It's a tie!`;
+  if(points['computer'] > points['player'])
+    return 'Computer wins!';
+  return 'Player wins!';
+}
+
+function playGame(){
+  let numberOfRounds = 5;
+  while(numberOfRounds--){
+    const result = playRound();
+    console.log(result);
+  }
+  const winner = getWinner();
+  console.log(winner);
+}
+
+playGame();
