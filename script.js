@@ -95,5 +95,3 @@ function playGame(){
   const winner = getWinner();
   console.log(winner);
 }
-
-playGame();
