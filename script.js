@@ -4,73 +4,86 @@ const points = {
   'computer': 0,
 };
 
-function getComputerChoice(){
-  const randomNumber = parseInt(Math.random() * 100);
-  return choices[randomNumber%3];
-}
-
 function getPlayerChoice(button){
   const playerChoice = button.textContent.toLowerCase();
   return playerChoice;
 }
 
-function playerChoosesRock(playerSelection, computerSelection){
-  if(computerSelection === 'paper'){
-    points['computer']++;
-    document.querySelector('.computer-score').textContent = points.computer.toString();
-    document.querySelector('.round-result').textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
-    return;
+class Round {
+  constructor(playerChoice){
+    this.playerChoice = playerChoice;
+    this.computerChoice = this.getComputerChoice();
   }
-  if(computerSelection === 'rock'){
-    document.querySelector('.round-result').textContent = `Tie! ${computerSelection} is equal to ${playerSelection}`;
-    return;
-  }
-  points['player']++;
-  document.querySelector('.player-score').textContent = points.player.toString();
-  document.querySelector('.round-result').textContent = `You win! ${playerSelection} beats ${computerSelection}`;
-}
 
-function playerChoosesPaper(playerSelection, computerSelection){
-  if(computerSelection === 'paper'){
-    document.querySelector('.round-result').textContent = `Tie! ${computerSelection} is equal to ${playerSelection}`;
-    return;
+  getComputerChoice(){
+    const randomNumber = parseInt(Math.random() * 100);
+    return choices[randomNumber%3];
   }
-  if(computerSelection === 'rock'){
+
+  getResult(){
+    if(this.playerChoice === 'rock'){
+      this.playerChoosesRock();
+    }
+    if(this.playerChoice === 'paper'){
+      this.playerChoosesPaper();
+    }
+    if(this.playerChoice === 'scissors'){
+      this.playerChoosesScissors();
+    }
+  }
+  
+  playerChoosesRock(){
+
+    if(this.computerChoice === 'paper'){
+      this.playerLoses();
+      return;
+    }
+    if(this.computerChoice === 'rock'){
+      this.tieRound();
+      return;
+    }
+
+    this.playerWins();
+  }
+
+  playerChoosesPaper(){
+    if(this.computerChoice === 'paper'){
+      this.tieRound();
+      return;
+    }
+    if(this.computerChoice === 'rock'){
+      this.playerWins();
+      return;
+    }
+    this.playerLoses();
+  }
+
+  playerChoosesScissors(){
+    if(this.computerChoice === 'paper'){
+      this.playerWins();
+      return;
+    }
+    if(this.computerChoice === 'rock'){
+      this.playerLoses();
+      return;
+    }
+    this.tieRound();
+  }
+
+  playerWins(){
     points['player']++;
     document.querySelector('.player-score').textContent = points.player.toString();
-    document.querySelector('.round-result').textContent = `You win! ${playerSelection} beats ${computerSelection}`;
-    return;
+    document.querySelector('.round-result').textContent = `You win! ${this.playerChoice} beats ${this.computerChoice}`;
   }
-  points['computer']++;
-  document.querySelector('.computer-score').textContent = points.computer.toString();
-  document.querySelector('.round-result').textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
-}
 
-function playerChoosesScissors(playerSelection, computerSelection){
-  if(computerSelection === 'paper'){
-    points['player']++;
-    document.querySelector('.player-score').textContent = points.player.toString();
-    document.querySelector('.round-result').textContent = `You win! ${playerSelection} beats ${computerSelection}`;
-    return;
-  }
-  if(computerSelection === 'rock'){
+  playerLoses(){
     points['computer']++;
     document.querySelector('.computer-score').textContent = points.computer.toString();
-    document.querySelector('.round-result').textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
-    return;
+    document.querySelector('.round-result').textContent = `You lose! ${this.computerChoice} beats ${this.playerChoice}`;
   }
-  document.querySelector('.round-result').textContent = `Tie! ${computerSelection} is equal to ${playerSelection}`;
-}
 
-function getRoundResult(playerSelection, computerSelection){
-  if(playerSelection === 'rock'){
-    return playerChoosesRock(playerSelection, computerSelection);
-  }
-  if(playerSelection === 'paper'){
-    return playerChoosesPaper(playerSelection, computerSelection);
-  }
-  if(playerSelection === 'scissors'){
-    return playerChoosesScissors(playerSelection, computerSelection);
+  tieRound(){
+    document.querySelector('.round-result').textContent = `Tie! ${this.computerChoice} is equal to ${this.playerChoice}`;
   }
 }
 
@@ -78,9 +91,9 @@ function playRound(e){
   if(document.querySelector('.winner').textContent !== ''){
     document.querySelector('.winner').textContent = '';
   }
-  const playerSelection = getPlayerChoice(e.target);
-  const computerSelection = getComputerChoice();
-  getRoundResult(playerSelection, computerSelection);
+  const playerChoice = getPlayerChoice(e.target);
+  const round = new Round(playerChoice);
+  round.getResult();
   getWinner();
 }
 
