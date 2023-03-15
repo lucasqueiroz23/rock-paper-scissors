@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Ps2P';
+  src: url('fonts/PressStart2P-Regular.ttf');
+}
+
 body{
   margin: 0;
   padding: 0;
@@ -20,9 +25,11 @@ body{
 }
 
 .header{
-  font-size: 2em;
+  font-family: 'Ps2P';
+  font-size: 3em;
   text-align: center;
-  background-color: red;
+  color: black;
+  background-color: royalblue;
   padding: .5em;
 }
 
