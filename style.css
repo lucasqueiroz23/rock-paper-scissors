@@ -4,6 +4,7 @@
 }
 
 body{
+  font-family: 'Ps2P';
   margin: 0;
   padding: 0;
   color: white;
@@ -29,7 +30,6 @@ body{
 }
 
 .header{
-  font-family: 'Ps2P';
   font-size: 3em;
   text-align: center;
   color: beige;
@@ -37,8 +37,8 @@ body{
   padding: .5em;
 }
 
-.versus {
-  align-self: center;
+.round-result {
+  font-size: 2em;
 }
 
 .selection {
@@ -71,4 +71,8 @@ body{
   color: black;
   align-self: center;
   font-size: 2em;
+}
+
+.align-center {
+  align-self: center;
 }

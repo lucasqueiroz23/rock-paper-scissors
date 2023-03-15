@@ -13,6 +13,7 @@ class Round {
   constructor(playerChoice){
     this.playerChoice = playerChoice;
     this.computerChoice = this.getComputerChoice();
+    this.changeImage('.computer', this.computerChoice);
   }
 
   getComputerChoice(){
@@ -34,6 +35,8 @@ class Round {
   
   playerChoosesRock(){
 
+    this.changeImage('.player','rock');
+
     if(this.computerChoice === 'paper'){
       this.playerLoses();
       return;
@@ -47,6 +50,7 @@ class Round {
   }
 
   playerChoosesPaper(){
+    this.changeImage('.player','paper');
     if(this.computerChoice === 'paper'){
       this.tieRound();
       return;
@@ -59,6 +63,7 @@ class Round {
   }
 
   playerChoosesScissors(){
+    this.changeImage('.player','scissors');
     if(this.computerChoice === 'paper'){
       this.playerWins();
       return;
@@ -73,23 +78,39 @@ class Round {
   playerWins(){
     points['player']++;
     document.querySelector('.player-score').textContent = points.player.toString();
-    document.querySelector('.round-result').textContent = `You win! ${this.playerChoice} beats ${this.computerChoice}`;
+    document.querySelector('.round-result').textContent = `You win! ${this.playerChoice} beats ${this.computerChoice}`.toUpperCase();
   }
 
   playerLoses(){
     points['computer']++;
     document.querySelector('.computer-score').textContent = points.computer.toString();
-    document.querySelector('.round-result').textContent = `You lose! ${this.computerChoice} beats ${this.playerChoice}`;
+    document.querySelector('.round-result').textContent = `You lose! ${this.computerChoice} beats ${this.playerChoice}`.toUpperCase();
   }
 
   tieRound(){
-    document.querySelector('.round-result').textContent = `Tie! ${this.computerChoice} is equal to ${this.playerChoice}`;
+    document.querySelector('.round-result').textContent = `Tie! ${this.computerChoice} is equal to ${this.playerChoice}`.toUpperCase();
   }
+
+  changeImage(target, choice){
+    const selector = target + ' .selection img';
+    const img = document.querySelector(selector);
+    img.setAttribute('src', `./images/${choice}.png`);
+  }
+
+}
+
+function isNewGame(){
+  if(points.player === points.computer && points.player === 0)
+    return true;
+  return false;
 }
 
 function playRound(e){
-  if(document.querySelector('.winner').textContent !== ''){
-    document.querySelector('.winner').textContent = '';
+  if(isNewGame()){
+    document.querySelectorAll('.player-score, .computer-score').forEach(element=>element.textContent = 0);
+  }
+  if(document.querySelector('.info').textContent !== 'FIRST TO FIVE WINS!'){
+    document.querySelector('.info').textContent = 'FIRST TO FIVE WINS!';
   }
   const playerChoice = getPlayerChoice(e.target);
   const round = new Round(playerChoice);
@@ -99,16 +120,15 @@ function playRound(e){
 
 function getWinner(){
   if(points['computer'] === 5)
-    document.querySelector('.winner').textContent = 'Computer wins!';
+    document.querySelector('.info').textContent = 'Computer wins!';
   else {
     if(points['player'] === 5)
-      document.querySelector('.winner').textContent = 'Player wins!';
+      document.querySelector('.info').textContent = 'Player wins!';
     else return;
   }
 
   points.computer = 0;
   points.player = 0;
-  document.querySelectorAll('.player-score, .computer-score').forEach(element=>element.textContent = 0);
 }
 
 
