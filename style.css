@@ -76,3 +76,12 @@ body{
 .align-center {
   align-self: center;
 }
+
+.choice {
+  font-size: 2em;
+  padding: .3em;
+}
+
+.choice:hover {
+  font-size:2.1em;
+}
