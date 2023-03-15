@@ -9,23 +9,36 @@
   <div class="header">
     <header class="bold">ROCK, PAPER, SCISSORS</header>
   </div>
-  <div class="info">
+  <div class="info text-center">
     FIRST TO FIVE WINS
   </div>
   <div class="game flex">
     <div class="player flex column">
-      <div class="points flex">YOUR SCORE: <div class="player-score">0</div></div>
-      <div class="player-choice">
-        <button class="choice rock">ROCK</button>
-        <button class="choice paper">PAPER</button>
-        <button class="choice scissors">SCISSORS</button>
+      <div class="points text-center">
+        YOU 
       </div>
+      <div class="selection">
+      </div>
+      <div class="player-score text-center">0</div>
     </div>
+
+    <div class="versus">X</div>
+
     <div class="computer">
-      <div class="points flex">COMPUTER SCORE:<div class="computer-score">0</div></div>
+      <div class="points text-center">
+        COMPUTER
+      </div>
+      <div class="selection">
+      </div>
+      <div class="computer-score text-center">0</div>
     </div>
-    <div class="round-result"></div>
   </div>
+  <div class="player-choice">
+    <button class="choice rock">ROCK</button>
+    <button class="choice paper">PAPER</button>
+    <button class="choice scissors">SCISSORS</button>
+  </div>
+  <div class="round-result"></div>
   <div class="winner"></div>
 </body>
 </html>

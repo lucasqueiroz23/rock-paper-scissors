@@ -16,6 +16,10 @@ body{
   display: flex;
 }
 
+.text-center{
+  text-align: center;
+}
+
 .column {
   flex-direction: column;
 }
@@ -28,24 +32,37 @@ body{
   font-family: 'Ps2P';
   font-size: 3em;
   text-align: center;
-  color: black;
+  color: beige;
   background-color: royalblue;
   padding: .5em;
 }
 
+.versus {
+  align-self: center;
+}
+
+.selection {
+  width: 20rem;
+  height: 20rem;
+  border: .3em solid white;
+}
+
+.selection img {
+  width: 100%;
+  height: 100%;
+}
+
 .info {
-  text-align: center;
   font-size: 2em;
 }
 
 .game {
   padding: 1em;
-  background-color: lightgreen;
+  background-color: lightblue;
   color: black;
   font-size: 2em;
-  width: 80%;
   margin: auto;
-  justify-content: center;
+  justify-content: space-between;
   gap: 2em;
 }
 

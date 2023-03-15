@@ -108,7 +108,6 @@ function getWinner(){
 
   points.computer = 0;
   points.player = 0;
-
   document.querySelectorAll('.player-score, .computer-score').forEach(element=>element.textContent = 0);
 }
 
